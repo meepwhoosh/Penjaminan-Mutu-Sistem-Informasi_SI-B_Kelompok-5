@@ -13,14 +13,15 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-   public function run(): void
-{
-    $this->call([
-        UsersSeeder::class,
-        HewanSeeder::class,
-        KesehatanSeeder::class,
-        AdopsiSeeder::class,
-        LaporanAdopsiSeeder::class,
-    ]);
-}
+    public function run(): void
+    {
+        $this->call([
+            AdminSeeder::class,
+            UsersSeeder::class,
+            HewanSeeder::class,
+            KesehatanSeeder::class,
+            AdopsiSeeder::class,
+            LaporanAdopsiSeeder::class,
+        ]);
+    }
 }

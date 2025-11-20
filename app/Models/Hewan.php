@@ -15,6 +15,7 @@ class Hewan extends Model
         'nama',
         'jenis',
         'ras',
+        'deskripsi',
         'usia',
         'foto',
         'status',

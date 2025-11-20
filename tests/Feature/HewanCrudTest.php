@@ -23,7 +23,7 @@ class HewanCrudTest extends TestCase
         $this->actingAs($admin);
 
         // Create
-        $response = $this->post(route('hewan.store'), [
+        $response = $this->post(route('admin.hewan.store'), [
             'nama' => 'Kucing Test',
             'jenis' => 'Kucing',
             'ras' => 'Persia',
@@ -41,7 +41,7 @@ class HewanCrudTest extends TestCase
         $this->assertNotNull($hewan);
 
         // Update
-        $response = $this->put(route('hewan.update', $hewan->id), [
+        $response = $this->put(route('admin.hewan.update', $hewan->id), [
             'nama' => 'Kucing Test Updated',
             'jenis' => 'Kucing',
             'ras' => 'Persia',
@@ -54,7 +54,7 @@ class HewanCrudTest extends TestCase
         $this->assertDatabaseHas('hewan', ['nama' => 'Kucing Test Updated']);
 
         // Delete
-        $response = $this->delete(route('hewan.destroy', $hewan->id));
+        $response = $this->delete(route('admin.hewan.destroy', $hewan->id));
         $response->assertStatus(302);
         $this->assertDatabaseMissing('hewan', ['nama' => 'Kucing Test Updated']);
     }

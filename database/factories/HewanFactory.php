@@ -15,6 +15,7 @@ class HewanFactory extends Factory
             'nama' => fake()->firstName() . ' ' . fake()->word(),
             'jenis' => fake()->randomElement(['Kucing', 'Anjing', 'Kelinci']),
             'ras' => fake()->word(),
+            'deskripsi' => fake()->sentence(),
             'usia' => fake()->numberBetween(1, 10),
             'foto' => null,
             'status' => 'tersedia',

@@ -17,8 +17,9 @@ class HewanRequest extends FormRequest
             'nama' => ['required', 'string', 'max:100'],
             'jenis' => ['required', 'string', 'max:50'],
             'ras' => ['nullable', 'string', 'max:50'],
+            'deskripsi' => ['nullable', 'string', 'max:1000'],
             'usia' => ['nullable', 'integer'],
-            'foto' => ['nullable', 'image', 'max:5120'],
+            'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'status' => ['required', 'in:tersedia,diadopsi'],
         ];
     }

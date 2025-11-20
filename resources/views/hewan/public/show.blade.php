@@ -4,9 +4,11 @@
 <div class="container mx-auto py-8">
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">{{ $hewan->nama }}</h1>
-        <div>
-            <a href="{{ route('admin.hewan.edit', $hewan) }}" class="text-yellow-600">Edit</a>
-            <a href="{{ route('admin.hewan.index') }}" class="ms-4 text-gray-600">Kembali</a>
+        <div class="flex gap-3">
+            @auth
+                <a href="{{ route('user.dashboard') }}" class="text-gray-600 underline">Dashboard</a>
+            @endauth
+            <a href="{{ route('hewan.index') }}" class="ms-4 text-gray-600 underline">Kembali</a>
         </div>
     </div>
 
@@ -23,6 +25,7 @@
     <p class="mt-2"><strong>Deskripsi:</strong> {{ $hewan->deskripsi ?? '-' }}</p>
     <p><strong>Usia:</strong> {{ $hewan->usia ?? '-' }}</p>
     <p><strong>Status:</strong> {{ $hewan->status }}</p>
+
     @auth
         @if(auth()->user()->role === 'user' && $hewan->status === 'tersedia')
             <div class="mt-4">

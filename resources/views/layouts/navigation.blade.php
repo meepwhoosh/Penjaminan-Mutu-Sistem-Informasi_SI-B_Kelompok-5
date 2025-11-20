@@ -15,6 +15,30 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if(Auth::check() && Auth::user()->role === 'user')
+                        <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
+                            {{ __('Dashboard User') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('hewan.index')" :active="request()->routeIs('hewan.index') || request()->routeIs('hewan.show')">
+                            {{ __('Lihat Hewan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('user.adopsi')" :active="request()->routeIs('user.adopsi')">
+                            {{ __('Adopsi Saya') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if(Auth::check() && Auth::user()->role === 'admin')
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                            {{ __('Admin Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.hewan.index')" :active="request()->routeIs('admin.hewan.*')">
+                            {{ __('Kelola Hewan') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.adopsi.index')" :active="request()->routeIs('admin.adopsi.*')">
+                            {{ __('Kelola Adopsi') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +94,30 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @if(Auth::check() && Auth::user()->role === 'user')
+                <x-responsive-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
+                    {{ __('Dashboard User') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('hewan.index')" :active="request()->routeIs('hewan.index') || request()->routeIs('hewan.show')">
+                    {{ __('Lihat Hewan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.adopsi')" :active="request()->routeIs('user.adopsi')">
+                    {{ __('Adopsi Saya') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if(Auth::check() && Auth::user()->role === 'admin')
+                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                    {{ __('Admin Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.hewan.index')" :active="request()->routeIs('admin.hewan.*')">
+                    {{ __('Kelola Hewan') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.adopsi.index')" :active="request()->routeIs('admin.adopsi.*')">
+                    {{ __('Kelola Adopsi') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

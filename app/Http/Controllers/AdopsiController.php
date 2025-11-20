@@ -32,9 +32,14 @@ class AdopsiController extends Controller
     {
         $data = $request->validated();
 
-        Adopsi::create($data);
+        if ($this->isAcceptedStatus($data['status']) && $this->hasActiveAdoption($data['hewan_id'])) {
+            return back()->withErrors(['hewan_id' => 'Hewan sudah memiliki adopsi aktif.'])->withInput();
+        }
 
-        return redirect()->route('adopsi.index')->with('status', 'Adopsi berhasil dibuat.');
+        $adopsi = Adopsi::create($data);
+        $this->syncHewanStatus($adopsi->hewan, $adopsi->status);
+
+        return redirect()->route('admin.adopsi.index')->with('status', 'Adopsi berhasil dibuat.');
     }
 
     public function show(Adopsi $adopsi): View
@@ -52,17 +57,49 @@ class AdopsiController extends Controller
 
     public function update(AdopsiRequest $request, Adopsi $adopsi): RedirectResponse
     {
+        $oldHewanId = $adopsi->hewan_id;
         $data = $request->validated();
+
+        if ($this->isAcceptedStatus($data['status']) && $this->hasActiveAdoption($data['hewan_id'], $adopsi->id)) {
+            return back()->withErrors(['hewan_id' => 'Hewan sudah memiliki adopsi aktif.'])->withInput();
+        }
+
         $adopsi->update($data);
 
-        return redirect()->route('adopsi.index')->with('status', 'Adopsi berhasil diperbarui.');
+        // Sync new hewan status
+        $this->syncHewanStatus($adopsi->hewan, $adopsi->status);
+
+        // If hewan changed, release previous hewan if no other active adopsi
+        if ($oldHewanId !== $adopsi->hewan_id) {
+            $this->refreshHewanAvailability($oldHewanId);
+        }
+
+        return redirect()->route('admin.adopsi.index')->with('status', 'Adopsi berhasil diperbarui.');
     }
 
     public function destroy(Adopsi $adopsi): RedirectResponse
     {
+        $hewanId = $adopsi->hewan_id;
         $adopsi->delete();
 
-        return redirect()->route('adopsi.index')->with('status', 'Adopsi berhasil dihapus.');
+        $this->refreshHewanAvailability($hewanId);
+
+        return redirect()->route('admin.adopsi.index')->with('status', 'Adopsi berhasil dihapus.');
+    }
+
+    /**
+     * Form permintaan adopsi untuk user.
+     */
+    public function requestForm(Hewan $hewan): View
+    {
+        $user = Auth::user();
+        $isAdmin = $user && $user->role === 'admin';
+
+        if ($hewan->status !== 'tersedia' && ! $isAdmin) {
+            abort(404);
+        }
+
+        return view('adopsi.request', compact('hewan'));
     }
 
     /**
@@ -75,6 +112,10 @@ class AdopsiController extends Controller
         if (!$user) {
             return redirect()->route('login');
         }
+
+        $validated = $request->validate([
+            'tanggal_adopsi' => ['nullable', 'date'],
+        ]);
 
         // Only request if hewan is available
         if ($hewan->status !== 'tersedia') {
@@ -94,10 +135,79 @@ class AdopsiController extends Controller
         Adopsi::create([
             'user_id' => $user->id,
             'hewan_id' => $hewan->id,
-            'tanggal_adopsi' => null,
+            'tanggal_adopsi' => $validated['tanggal_adopsi'] ?? null,
             'status' => 'pending',
         ]);
 
-        return redirect()->route('hewan.show', $hewan)->with('status', 'Permintaan adopsi berhasil dikirim.');
+        return redirect()->route('user.adopsi')->with('status', 'Permintaan adopsi berhasil dikirim.');
+    }
+
+    /**
+     * Tampilkan daftar adopsi milik user yang login.
+     */
+    public function myRequests(): View
+    {
+        $user = Auth::user();
+        $adopsi = Adopsi::with('hewan')
+            ->where('user_id', optional($user)->id)
+            ->latest()
+            ->paginate(10);
+
+        return view('user.adopsi', compact('adopsi'));
+    }
+
+    /**
+     * Sesuaikan status hewan berdasarkan status adopsi.
+     */
+    protected function syncHewanStatus(Hewan $hewan, string $status): void
+    {
+        if (in_array($status, ['diterima', 'selesai'])) {
+            $hewan->update(['status' => 'diadopsi']);
+        } else {
+            $hasActiveAdoption = $this->hasActiveAdoption($hewan->id);
+
+            if (! $hasActiveAdoption) {
+                $hewan->update(['status' => 'tersedia']);
+            }
+        }
+    }
+
+    /**
+     * Kembalikan hewan ke tersedia jika tidak ada adopsi aktif diterima/selesai.
+     */
+    protected function refreshHewanAvailability(int $hewanId): void
+    {
+        $hewan = Hewan::find($hewanId);
+        if (! $hewan) {
+            return;
+        }
+
+        $hasActiveAdoption = Adopsi::where('hewan_id', $hewanId)
+            ->whereIn('status', ['diterima', 'selesai'])
+            ->exists();
+
+        if (! $hasActiveAdoption && $hewan->status !== 'tersedia') {
+            $hewan->update(['status' => 'tersedia']);
+        }
+    }
+
+    /**
+     * Periksa apakah hewan memiliki adopsi diterima/selesai (kecuali id tertentu).
+     */
+    protected function hasActiveAdoption(int $hewanId, ?int $exceptAdopsiId = null): bool
+    {
+        $query = Adopsi::where('hewan_id', $hewanId)
+            ->whereIn('status', ['diterima', 'selesai']);
+
+        if ($exceptAdopsiId) {
+            $query->where('id', '!=', $exceptAdopsiId);
+        }
+
+        return $query->exists();
+    }
+
+    protected function isAcceptedStatus(string $status): bool
+    {
+        return in_array($status, ['diterima', 'selesai'], true);
     }
 }

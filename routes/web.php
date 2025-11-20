@@ -39,16 +39,20 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/dashboard/user', function () {
         return view('user.dashboard');
     })->name('user.dashboard');
+
+    Route::get('/user/adopsi', [App\Http\Controllers\AdopsiController::class, 'myRequests'])
+        ->name('user.adopsi');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    
-    // CRUD for Hewan (admin only)
+});
+
+// Admin resources under /admin URL and named with admin.* to avoid colliding with public routes
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('hewan', App\Http\Controllers\HewanController::class);
-    // CRUD for Adopsi (admin only)
     Route::resource('adopsi', App\Http\Controllers\AdopsiController::class);
 });
 
@@ -56,3 +60,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::post('/hewan/{hewan}/adopsi', [App\Http\Controllers\AdopsiController::class, 'storeRequest'])
     ->middleware('auth')
     ->name('hewan.adopsi.request');
+
+Route::get('/hewan/{hewan}/adopsi', [App\Http\Controllers\AdopsiController::class, 'requestForm'])
+    ->middleware('auth')
+    ->name('hewan.adopsi.form');
+
+// Public-facing listing/show for Hewan (no auth required)
+Route::get('/hewan', [App\Http\Controllers\HewanController::class, 'publicIndex'])
+    ->name('hewan.index');
+
+Route::get('/hewan/{hewan}', [App\Http\Controllers\HewanController::class, 'publicShow'])
+    ->name('hewan.show');

@@ -48,4 +48,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     
     // CRUD for Hewan (admin only)
     Route::resource('hewan', App\Http\Controllers\HewanController::class);
+    // CRUD for Adopsi (admin only)
+    Route::resource('adopsi', App\Http\Controllers\AdopsiController::class);
 });

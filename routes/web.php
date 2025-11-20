@@ -51,3 +51,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // CRUD for Adopsi (admin only)
     Route::resource('adopsi', App\Http\Controllers\AdopsiController::class);
 });
+
+// Public (authenticated user) endpoint to request adoption for a specific hewan
+Route::post('/hewan/{hewan}/adopsi', [App\Http\Controllers\AdopsiController::class, 'storeRequest'])
+    ->middleware('auth')
+    ->name('hewan.adopsi.request');

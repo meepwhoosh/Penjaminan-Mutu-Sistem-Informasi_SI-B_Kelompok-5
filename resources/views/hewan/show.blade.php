@@ -18,5 +18,19 @@
     <p><strong>Ras:</strong> {{ $hewan->ras ?? '-' }}</p>
     <p><strong>Usia:</strong> {{ $hewan->usia ?? '-' }}</p>
     <p><strong>Status:</strong> {{ $hewan->status }}</p>
+    @auth
+        @if(auth()->user()->role === 'user' && $hewan->status === 'tersedia')
+            <div class="mt-4">
+                @if(session('status'))
+                    <div class="mb-2 text-green-600">{{ session('status') }}</div>
+                @endif
+
+                <form action="{{ route('hewan.adopsi.request', $hewan) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Ajukan Adopsi</button>
+                </form>
+            </div>
+        @endif
+    @endauth
 </div>
 @endsection

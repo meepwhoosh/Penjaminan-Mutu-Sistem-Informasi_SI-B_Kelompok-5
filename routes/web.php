@@ -45,4 +45,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    
+    // CRUD for Hewan (admin only)
+    Route::resource('hewan', App\Http\Controllers\HewanController::class);
 });

@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nama',
+        'name',
         'email',
         'password',
         'role',
@@ -43,4 +44,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Alias accessor for English `name` attribute mapped to DB `nama`.
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['nama'] ?? null;
+    }
+
+    /**
+     * Alias mutator for English `name` attribute mapped to DB `nama`.
+     */
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['nama'] = $value;
+    }
 }

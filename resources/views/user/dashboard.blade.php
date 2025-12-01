@@ -52,31 +52,90 @@
 
 
 <!-- Search Section -->
- <div class="bg-white pt-16 pb-14">
-    <h2 class="search-title">Let's Find A Buddy</h2>
-    <div class="search-filters">
-        <div class="filter-item">
-            <div class="filter-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-            </div>
-            <span class="filter-label">Dog</span>
-        </div>
-        <div class="filter-item">
-            <div class="filter-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-            </div>
-            <span class="filter-label">Cat</span>
-        </div>
+ <div class="bg-white pt-16 pb-10">
+    {{-- Judul --}}
+    <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-4xl font-extrabold text-[#3654A5] mb-10">Let's Find A Buddy</h2>
+    </div>
 
-        <input type="text" class="search-input" placeholder="Breed...">
-        <input type="text" class="search-input" placeholder="Age...">
-        <button class="search-button">Find</button>
-    </div>
-    </div>
+    {{-- Form Filter --}}
+    <form action="{{ route('hewan.index') }}" class="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto px-4" method="GET">
+        
+        {{-- Input Tersembunyi untuk Jenis Hewan (Dog/Cat) --}}
+        <input type="hidden" name="jenis" id="jenis-input" value="{{ request('jenis') }}">
+            
+            {{-- Dog --}}
+            <button type="submit" name="jenis" value="anjing" 
+                class="flex flex-col items-center text-gray-600 hover:text-gray-900 transition {{ request('jenis') == 'anjing' ? 'text-blue-700' : '' }}">
+                <div class="w-16 h-16 border-2 {{ request('jenis') == 'anjing' ? 'border-blue-700' : 'border-gray-400' }} rounded-lg flex items-center justify-center text-3xl hover:border-gray-600">
+                    🐶
+                </div>
+                <span class="text-sm mt-2 font-medium">Dog</span>
+            </button>
+
+            {{-- Cat --}}
+            <button type="submit" name="jenis" value="kucing"
+                class="flex flex-col items-center text-gray-600 hover:text-gray-900 transition {{ request('jenis') == 'kucing' ? 'text-blue-700' : '' }}">
+                <div class="w-16 h-16 border-2 {{ request('jenis') == 'kucing' ? 'border-blue-700' : 'border-gray-400' }} rounded-lg flex items-center justify-center text-3xl hover:border-gray-600">
+                    🐱
+                </div>
+                <span class="text-sm mt-2 font-medium">Cat</span>
+            </button>
+        
+        {{-- Gender Dropdown --}}
+        <select name="gender" class="flex-grow px-8 py-2.5 rounded-full border-2 border-gray-300 bg-yellow-400 text-gray-800 font-medium shadow-sm focus:outline-none focus:border-yellow-500">
+            <option value="">Gender</option>
+            <option value="jantan" {{ request('gender') == 'jantan' ? 'selected' : '' }}>Male</option>
+            <option value="betina" {{ request('gender') == 'betina' ? 'selected' : '' }}>Female</option>
+        </select>
+
+        {{-- Age Dropdown --}}
+        <select name="usia" class="flex-grow px-8 py-2.5 rounded-full border-2 border-gray-300 bg-yellow-400 text-gray-800 font-medium shadow-sm focus:outline-none focus:border-yellow-500">
+            <option value="">Age</option>
+            <option value="1" {{ request('usia') == '1' ? 'selected' : '' }}>1 year</option>
+            <option value="2" {{ request('usia') == '2' ? 'selected' : '' }}>2 years</option>
+            <option value="3" {{ request('usia') == '3' ? 'selected' : '' }}>3 years</option>
+            <option value="4" {{ request('usia') == '4' ? 'selected' : '' }}>4 years</option>
+            <option value="5" {{ request('usia') == '5' ? 'selected' : '' }}>5+ years</option>
+        </select>
+
+        {{-- Find Button (Submit) --}}
+        <button type="submit"
+            class="px-8 py-2.5 bg-blue-700 text-white rounded-full shadow-md hover:bg-blue-800 font-medium transition">
+            Find
+        </button>
+            
+        {{-- Reset Button --}}
+        @if(request()->hasAny(['jenis', 'gender', 'usia']))
+        <a href="{{ route('hewan.index') }}"
+            class="px-8 py-2.5 bg-gray-500 text-white rounded-full shadow-md hover:bg-gray-600 font-medium transition">
+            Reset
+        </a>
+        @endif
+    </form>
+</div>
+
+<style>
+/* Menambahkan style kustom untuk tombol Dog/Cat agar menyerupai filter-item */
+.filter-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Lebar tetap untuk tombol filter */
+    height: 100px; /* Tinggi tetap untuk tombol filter */
+    border-radius: 50%;
+    border-width: 2px;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+}
+.filter-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+}
+</style>
 </section>
 
 <!-- Welcome Section -->

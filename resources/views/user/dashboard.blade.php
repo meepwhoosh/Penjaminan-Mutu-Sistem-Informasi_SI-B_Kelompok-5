@@ -1,35 +1,252 @@
 @extends('layouts.app')
 
+@section('title', 'Home - Adopt a Buddy')
+
 @section('content')
-    <div class="container mx-auto py-10 space-y-8">
-        <div class="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl p-6 md:p-8 shadow">
-            <p class="text-xs uppercase tracking-[0.2em] opacity-80">Dashboard User</p>
-            <h1 class="text-3xl font-bold">Selamat datang di PawCare</h1>
-            <p class="mt-2 text-sm opacity-90">Cari hewan yang cocok dan ajukan adopsi dengan mudah.</p>
-            <div class="mt-4 flex flex-wrap gap-3">
-                <a href="{{ route('hewan.index') }}" class="inline-flex items-center px-4 py-2 rounded-md bg-white text-emerald-700 font-semibold shadow hover:bg-emerald-50">Lihat Hewan</a>
-                <a href="{{ route('user.adopsi') }}" class="inline-flex items-center px-4 py-2 rounded-md bg-emerald-500 text-white font-semibold shadow hover:bg-emerald-600">Adopsi Saya</a>
-                <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 rounded-md bg-white text-emerald-700 font-semibold shadow hover:bg-emerald-50">Dashboard Umum</a>
+
+<style>
+/* === semua CSS kamu tadi copy-paste apa adanya di sini === */
+/* ... MASUKKAN SEMUA CSS DARI FILE TADI DI SINI TANPA <style> BARU ... */
+</style>
+
+<!-- Hero Section -->
+<section class="bg-[#F8BD00] pt-24 relative overflow-hidden">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between min-h-[500px]">
+        
+        {{-- Teks Hero (Kiri) --}}
+        <div class="w-full md:w-1/2 mb-10 md:mb-0 z-10">
+            <h1 class="text-[#3654A5] text-5xl md:text-6xl font-extrabold leading-tight tracking-tight max-w-lg">
+                Every paw deserves a place to call home.
+            </h1>
+            <button 
+                class="mt-8 px-8 py-3 bg-[#3654A5] text-white text-lg font-bold rounded-xl shadow-lg hover:bg-blue-700 transition duration-300" 
+                onclick="window.location.href='{{ route('hewan.index') }}'">
+                Find a friend
+            </button>
+        </div>
+        
+        {{-- Gambar Kucing (Kanan Bawah) --}}
+        <img 
+            src="{{ asset('images/Home1.png') }}" 
+            alt="Cat Looking Up" 
+            class="
+                
+                /* Posisi Absolut untuk efek offset */
+                absolute 
+                bottom-0 
+                right-0 
+                
+                /* Ukuran: Ditingkatkan menjadi 650px */
+                h-[600px]
+                w-auto 
+                
+                /* Geser ke Kanan dan Bawah (Efek Offset) */
+                -mr-1 
+                mb-32
+                
+                /* Z-index: di belakang teks (z-0) */
+                z-0
+            "
+        >
+    </div>
+
+
+<!-- Search Section -->
+ <div class="bg-white pt-16 pb-14">
+    <h2 class="search-title">Let's Find A Buddy</h2>
+    <div class="search-filters">
+        <div class="filter-item">
+            <div class="filter-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
             </div>
+            <span class="filter-label">Dog</span>
+        </div>
+        <div class="filter-item">
+            <div class="filter-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+            </div>
+            <span class="filter-label">Cat</span>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-white rounded-xl shadow p-4 border border-gray-100">
-                <p class="text-sm font-semibold text-gray-700">Mulai Adopsi</p>
-                <p class="text-sm text-gray-600 mt-2">Kunjungi daftar hewan, pilih yang tersedia, lalu isi form pengajuan.</p>
+        <input type="text" class="search-input" placeholder="Breed...">
+        <input type="text" class="search-input" placeholder="Age...">
+        <button class="search-button">Find</button>
+    </div>
+    </div>
+</section>
+
+<!-- Welcome Section -->
+<section class="bg-[#3654A5] relative overflow-visible">
+    <div class="mx-auto px-16 py-8 flex flex-col md:flex-row items-center min-h-[300px]">
+        
+        {{-- Gambar Anjing (Kiri) - Posisi dari bawah --}}
+        <div class="w-full md:w-1/2 relative flex items-end justify-start z-10 md:mb-[-253px]">
+            <img 
+                src="{{ asset('images/Home2.png') }}" 
+                alt="Dog" 
+                class="h-auto max-h-[650px] w-auto object-contain relative z-10"
+            >
+        </div>
+        
+        {{-- Konten Welcome (Kanan) --}}
+        <div class="w-full md:w-1/2 text-right px-8 py-12">
+            <img 
+                src="{{ asset('images/paw.png') }}" 
+                alt="paw" 
+                class="w-[80px] relative z-10 -mb-10 ml-8"
+            >
+            
+            <h2 class="text-[#F8BD00] text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                Welcome to<br>Adopt A Buddy
+            </h2>
+            <p class="text-[#F8BD00] text-lg md:text-xl leading-relaxed font-medium">
+                Ready to change a life? Browse our loving animals and find your new companion today. 
+                Explore hundreds of amazing pets waiting for their forever family.
+            </p>
+        </div>
+    </div>
+
+<!-- Stories Section -->
+    <div class="px-16 py-16 bg-white flex flex-col md:flex-row gap-12 relative">
+
+    <div class="w-full md:w-1/3 md:mt-20">
+        
+        <h2 class="text-[#3654A5] text-5xl md:text-6xl font-extrabold mb-12">
+            <br><br>Stories from<br>Adopters
+        </h2>
+
+    </div>
+    <div class="w-full md:w-2/3">
+        
+        <div class="space-y-12">
+            
+            {{-- Story 1 --}}
+            <div class="flex items-start gap-6">
+                <div class="flex-shrink-0">
+                    <img 
+                        src="{{ asset('images/Home6.jpeg') }}" 
+                        alt="Milo" 
+                        class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-[#3654A5]"
+                    >
+                </div>
+                <div class="flex-1">
+                    <p class="text-[#3654A5] text-xl md:text-2xl leading-relaxed mb-3">
+                        "Sejak mengadopsi Milo, rumah jadi lebih ramai dan penuh tawa. Dia bukan cuma peliharaan, tapi bagian dari keluarga kami."
+                    </p>
+                    <p class="text-[#F8BD00] text-2xl font-bold">
+                        – Tasya
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-xl shadow p-4 border border-gray-100">
-                <p class="text-sm font-semibold text-gray-700">Pantau Status</p>
-                <p class="text-sm text-gray-600 mt-2">Cek halaman “Adopsi Saya” untuk melihat permohonan pending/diterima/ditolak.</p>
+            
+            {{-- Story 2 --}}
+            <div class="flex items-start gap-6 md:ml-auto md:max-w-4xl">
+                <div class="flex-shrink-0 order-2 md:order-2">
+                    <img 
+                        src="{{ asset('images/Home7.jpeg') }}" 
+                        alt="Koko" 
+                        class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-[#3654A5]"
+                    >
+                </div>
+                <div class="flex-1 order-1 md:order-1 md:text-right">
+                    <p class="text-[#3654A5] text-xl md:text-2xl leading-relaxed mb-3">
+                        "Awalnya cuma lihat-lihat, eh sekarang tiap pagi dibangunin sama Koko yang minta sarapan 😂."
+                    </p>
+                    <p class="text-[#F8BD00] text-2xl font-bold">
+                        – Dimas
+                    </p>
+                </div>
             </div>
-            <div class="bg-white rounded-xl shadow p-4 border border-gray-100">
-                <p class="text-sm font-semibold text-gray-700">Tips</p>
-                <ul class="text-sm text-gray-600 list-disc list-inside space-y-1 mt-2">
-                    <li>Sertakan tanggal kunjungan yang pas.</li>
-                    <li>Siapkan tempat nyaman di rumah.</li>
-                    <li>Hubungi admin jika butuh bantuan.</li>
-                </ul>
+            
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Ready Section -->
+<section class="ready-section">
+    <div class="ready-content">
+        <div class="flex items-end gap-2">
+            <h2 class="ready-title">He's ready for <br>cuddles, are <br> you?</h2>
+            <div class="paw-icons mb-2">
+                <img 
+                    src="{{ asset('images/paw.png') }}" 
+                    alt="paw" 
+                    class="w-20 h-auto"
+                >
+            </div>
+        </div>
+        <button class="ready-button mt-6" onclick="window.location.href='{{ route('pets') }}'">Find a friend</button>
+    </div>
+
+    <div class="ready-image">
+        <img src="{{ asset('images/Home3.png') }}" alt="Cat" class="w-[450px]">
+    </div>
+</section>
+
+<!-- How to Adopt Section -->
+<section class="relative py-20 bg-white overflow-hidden ">
+    <h2 class="adopt-title text-center text-[#3654A5] text-5xl md:text-6xl font-extrabold mb-20">
+        How to <br>Adopt?
+    </h2>
+
+    <div class="relative">
+        {{-- Gambar Tangan Kiri --}}
+        <div class="absolute left-0 bottom-0 w-[380px] z-10">
+            <img 
+                src="{{ asset('images/Home5.png') }}" 
+                alt="Cat Paw Left" 
+                class="w-full h-auto object-contain"
+            >
+        </div>
+
+        {{-- Gambar Ekor Kanan --}}
+        <div class="absolute right-0 bottom-0 w-[480px] z-10">
+            <img 
+                src="{{ asset('images/Home4.png') }}" 
+                alt="Cat Tail Right" 
+                class="w-full h-auto object-contain"
+            >
+        </div>
+
+        {{-- Steps Container --}}
+        <div class="relative z-20 max-w-6xl mx-auto px-16">
+            <div class="flex justify-center gap-[800px] mb-20">
+                {{-- Step 1: Choose your buddy (Kiri Atas) --}}
+                <div class="adopt-step">
+                    <div class="w-60 h-60 rounded-full bg-[#F8BD00] flex items-center justify-center">
+                        <span class="text-[#3654A5] text-2xl font-bold text-center leading-tight">Choose your<br>buddy</span>
+                    </div>
+                </div>
+
+                {{-- Step 4: Bring them home (Kanan Atas) --}}
+                <div class="adopt-step">
+                    <div class="w-60 h-60 rounded-full bg-[#3654A5] flex items-center justify-center">
+                        <span class="text-[#F8BD00] text-2xl font-bold text-center leading-tight">Bring them<br>home!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center gap-40">
+                {{-- Step 2: Fill out the form (Kiri Bawah) --}}
+                <div class="adopt-step">
+                    <div class="w-60 h-60 rounded-full bg-[#3654A5] flex items-center justify-center">
+                        <span class="text-[#F8BD00] text-2xl font-bold text-center leading-tight">Fill out the<br>form</span>
+                    </div>
+                </div>
+
+                {{-- Step 3: Meet & greet (Kanan Bawah) --}}
+                <div class="adopt-step">
+                    <div class="w-60 h-60 rounded-full bg-[#F8BD00] flex items-center justify-center">
+                        <span class="text-[#3654A5] text-2xl font-bold text-center leading-tight">Meet & greet</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 @endsection

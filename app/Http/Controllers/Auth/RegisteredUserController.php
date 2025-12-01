@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Show register page.
      */
     public function create(): View
     {
@@ -23,31 +23,31 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Handle user registration.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name'  => ['required', 'string', 'max:100'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        // Map UI 'name' field to DB 'nama' column so we keep the existing schema.
+        // Create user
         $user = User::create([
-            'nama' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user',
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
+            'role'       => 'user',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        // Redirect based on role: admins -> admin dashboard, regular users -> main dashboard
+        // Redirect based on role
         if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
         }

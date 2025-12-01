@@ -18,13 +18,31 @@ class Adopsi extends Model
         'status',
     ];
 
+    // =========================================================
+    // ✅ PENYESUAIAN: MENGGUNAKAN $casts UNTUK TANGGAL/WAKTU
+    // =========================================================
+    protected $casts = [
+        // Mengubah kolom created_at (dari timestamps) menjadi objek Carbon
+        'created_at' => 'datetime', 
+        // Mengubah kolom tanggal_adopsi menjadi objek Carbon
+        'tanggal_adopsi' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    // =========================================================
+    // ✅ METHOD RELASI (Sudah Benar)
+    // =========================================================
+    
+    // Relasi ke User
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // Relasi ke Hewan (Sudah Benar)
     public function hewan()
     {
-        return $this->belongsTo(Hewan::class);
+        return $this->belongsTo(Hewan::class, 'hewan_id', 'id');
     }
+    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HewanRequest;
 use App\Models\Hewan;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -11,16 +12,46 @@ use Illuminate\Support\Facades\Storage;
 
 class HewanController extends Controller
 {
-    public function index(): View
+    public function publicIndex(Request $request)
     {
-        $hewan = Hewan::latest()->paginate(12);
+        $query = Hewan::query()->where('status', 'tersedia');
 
-        return view('hewan.admin.index', compact('hewan'));
-    }
+        // Filter by jenis (Dog/Cat)
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
 
-    public function create(): View
-    {
-        return view('hewan.create');
+        // Filter by gender
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        // Filter by age
+        if ($request->filled('usia')) {
+            $usia = $request->usia;
+            
+            // Karena usia dalam format string "2 years", "5 months", dll
+            // Kita cari yang dimulai dengan angka tersebut
+            if ($usia == '5') {
+                // 5+ years - cari yang >= 5
+                $query->where(function($q) {
+                    $q->where('usia', 'like', '5%')
+                      ->orWhere('usia', 'like', '6%')
+                      ->orWhere('usia', 'like', '7%')
+                      ->orWhere('usia', 'like', '8%')
+                      ->orWhere('usia', 'like', '9%')
+                      ->orWhere('usia', 'like', '10%');
+                });
+            } else {
+                // Exact match - cari yang diawali dengan angka tersebut
+                // Contoh: usia=2 akan match "2 years", "2,5 years", dll
+                $query->where('usia', 'like', $usia.'%');
+            }
+        }
+
+        $hewan = $query->paginate(12)->withQueryString();
+
+        return view('hewan.public.index', compact('hewan'));
     }
 
     public function store(HewanRequest $request): RedirectResponse
@@ -37,33 +68,14 @@ class HewanController extends Controller
         return redirect()->route('admin.hewan.index')->with('status', 'Hewan berhasil ditambahkan.');
     }
 
-    public function show(Hewan $hewan): View
+    // app/Http/Controllers/HewanController.php
+
+    public function show($id)
     {
-        return view('hewan.admin.show', compact('hewan'));
-    }
+        // Eager Load 'kesehatan' untuk mengambil data vaksin
+        $hewan = Hewan::with('kesehatan')->findOrFail($id); 
 
-    /**
-     * Public listing for available hewan (visible to all users).
-     */
-    public function publicIndex(): View
-    {
-        $query = Hewan::where('status', 'tersedia');
-
-        if ($search = request('q')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('jenis', 'like', "%{$search}%")
-                    ->orWhere('ras', 'like', "%{$search}%");
-            });
-        }
-
-        if ($jenis = request('jenis')) {
-            $query->where('jenis', $jenis);
-        }
-
-        $hewan = $query->latest()->paginate(12)->withQueryString();
-
-        return view('hewan.public.index', compact('hewan'));
+        return view('hewan.show', compact('hewan')); // Pastikan nama view sesuai
     }
 
     /**

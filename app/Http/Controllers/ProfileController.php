@@ -14,10 +14,16 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+    // Contoh dari method edit/show di ProfileController
+
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        // Memuat user, kemudian memuat relasi 'adopsi', dan di dalam 'adopsi'
+        // memuat relasi 'hewan'. Ini adalah Nested Eager Loading.
+        $user = $request->user()->load('adopsi.hewan');
+
+        return view('profile.edit', [ // Gunakan 'about' atau 'profile.edit' sesuai lokasi file Blade Anda
+            'user' => $user,
         ]);
     }
 

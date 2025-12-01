@@ -1,71 +1,158 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto py-12">
-    <div class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-xl p-6 md:p-8 flex items-center justify-between shadow-lg mb-8">
-        <div>
-            <p class="text-xs uppercase tracking-[0.2em] opacity-80">Pengajuan</p>
-            <h1 class="text-3xl font-bold">Ajukan Adopsi</h1>
-            <p class="text-sm opacity-90">Lengkapi form singkat sebelum mengajukan.</p>
-        </div>
-        <a href="{{ route('hewan.show', $hewan) }}" class="text-white underline text-sm">Kembali</a>
+<div class="w-full bg-gray-50 min-h-screen py-8 px-4 mt-20">
+    
+    {{-- Back Button --}}
+    <div class="max-w-2xl mx-auto mb-6">
+        <a href="{{ route('hewan.show', $hewan) }}" class="inline-flex items-center justify-center w-12 h-12 border-2 border-blue-700 rounded-lg hover:bg-blue-50 transition">
+            <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </a>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
-        <div class="md:col-span-2 bg-white p-6 md:p-8 rounded-xl shadow border border-gray-100">
-            <div class="flex items-start justify-between mb-6">
-                <div>
-                    <p class="text-sm text-gray-500">Hewan yang dipilih</p>
-                    <p class="font-semibold text-xl">{{ $hewan->nama }}</p>
-                    <p class="text-sm text-gray-600">{{ $hewan->jenis }} - {{ $hewan->ras ?? '-' }}</p>
-                </div>
-                <x-status-badge :status="$hewan->status" />
-            </div>
-
-            @if($errors->any())
-                <div class="mb-4 bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded">
-                    <ul class="list-disc list-inside text-sm">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('hewan.adopsi.request', $hewan) }}" method="POST" class="space-y-6">
-                @csrf
-                <div class="space-y-2">
-                    <label class="block text-sm font-semibold">Tanggal rencana adopsi</label>
-                    <input type="date" name="tanggal_adopsi" value="{{ old('tanggal_adopsi') }}" class="border p-3 w-full rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    <p class="text-sm text-gray-500">Opsional, sebagai preferensi jadwal Anda bertemu hewan.</p>
-                    @error('tanggal_adopsi')
-                        <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="flex gap-3 items-center">
-                    <button type="submit" class="inline-flex items-center bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500">
-                        Kirim Permohonan
-                    </button>
-                    <a href="{{ route('hewan.show', $hewan) }}" class="text-gray-600 underline">Batal</a>
-                </div>
-            </form>
+    {{-- Form Container --}}
+    <div class="max-w-2xl mx-auto bg-white rounded-3xl border-4 border-yellow-400 shadow-lg p-8">
+        
+        {{-- Header --}}
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-900 flex items-center justify-center gap-2">
+                <span class="text-2xl">🐾</span>
+                Adoption Form
+            </h1>
         </div>
 
-        <div class="space-y-4">
-            <div class="bg-white rounded-xl shadow p-4 border border-gray-100">
-                <p class="text-sm font-semibold mb-2">Tips sebelum mengajukan</p>
-                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
-                    <li>Pilih tanggal yang Anda bisa hadir.</li>
-                    <li>Pastikan keluarga setuju dengan adopsi.</li>
-                    <li>Siapkan ruang nyaman untuk hewan di rumah.</li>
+        {{-- Error Messages --}}
+        @if($errors->any())
+            <div class="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <ul class="list-disc list-inside text-sm">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                 </ul>
             </div>
-            <div class="bg-white rounded-xl shadow p-4 border border-gray-100">
-                <p class="text-sm font-semibold mb-2">Status hewan</p>
-                <p class="text-sm text-gray-700">Kami akan menghubungi Anda setelah permohonan diterima. Hewan akan tetap berstatus tersedia sampai disetujui admin.</p>
+        @endif
+
+        {{-- Form --}}
+        <form action="{{ route('hewan.adopsi.request', $hewan) }}" method="POST" class="space-y-5">
+            @csrf
+
+            {{-- Nama Lengkap --}}
+            <div>
+                <input type="text" 
+                       name="nama_lengkap" 
+                       placeholder="Nama lengkap" 
+                       value="{{ old('nama_lengkap', auth()->user()->name ?? '') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
             </div>
-        </div>
+
+            {{-- Alamat Lengkap --}}
+            <div>
+                <input type="text" 
+                       name="alamat" 
+                       placeholder="Alamat lengkap" 
+                       value="{{ old('alamat') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
+            </div>
+
+            {{-- Nomor Telepon/WhatsApp --}}
+            <div>
+                <input type="text" 
+                       name="telepon" 
+                       placeholder="Nomor telephone/Whatsapp" 
+                       value="{{ old('telepon') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
+            </div>
+
+            {{-- Email --}}
+            <div>
+                <input type="email" 
+                       name="email" 
+                       placeholder="Email" 
+                       value="{{ old('email', auth()->user()->email ?? '') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
+            </div>
+
+            {{-- Usia --}}
+            <div>
+                <input type="number" 
+                       name="usia" 
+                       placeholder="Usia" 
+                       value="{{ old('usia') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
+            </div>
+
+            {{-- Pekerjaan --}}
+            <div>
+                <input type="text" 
+                       name="pekerjaan" 
+                       placeholder="Pekerjaan" 
+                       value="{{ old('pekerjaan') }}"
+                       class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition"
+                       required>
+            </div>
+
+            {{-- Tipe Tempat Tinggal --}}
+            <div>
+                <select name="tipe_tempat_tinggal" 
+                        class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition appearance-none bg-white"
+                        required>
+                    <option value="">Tipe tempat tinggal</option>
+                    <option value="rumah" {{ old('tipe_tempat_tinggal') == 'rumah' ? 'selected' : '' }}>Rumah</option>
+                    <option value="apartemen" {{ old('tipe_tempat_tinggal') == 'apartemen' ? 'selected' : '' }}>Apartemen</option>
+                    <option value="kontrakan" {{ old('tipe_tempat_tinggal') == 'kontrakan' ? 'selected' : '' }}>Kontrakan</option>
+                    <option value="kost" {{ old('tipe_tempat_tinggal') == 'kost' ? 'selected' : '' }}>Kost</option>
+                </select>
+            </div>
+
+            {{-- Apakah pernah memelihara hewan sebelumnya --}}
+            <div>
+                <select name="pernah_pelihara" 
+                        class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition appearance-none bg-white"
+                        required>
+                    <option value="">Apakah pernah memelihara hewan sebelumnya?</option>
+                    <option value="ya" {{ old('pernah_pelihara') == 'ya' ? 'selected' : '' }}>Ya</option>
+                    <option value="tidak" {{ old('pernah_pelihara') == 'tidak' ? 'selected' : '' }}>Tidak</option>
+                </select>
+            </div>
+
+            {{-- Apakah saat ini memiliki hewan peliharaan lain --}}
+            <div>
+                <select name="punya_hewan_lain" 
+                        class="w-full px-6 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-blue-500 transition appearance-none bg-white"
+                        required>
+                    <option value="">Apakah saat ini memiliki hewan peliharaan lain?</option>
+                    <option value="ya" {{ old('punya_hewan_lain') == 'ya' ? 'selected' : '' }}>Ya</option>
+                    <option value="tidak" {{ old('punya_hewan_lain') == 'tidak' ? 'selected' : '' }}>Tidak</option>
+                </select>
+            </div>
+
+            {{-- Checkbox Agreement --}}
+            <div class="flex items-start gap-3">
+                <input type="checkbox" 
+                       name="agreement" 
+                       id="agreement" 
+                       class="mt-1 w-5 h-5 border-2 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                       required>
+                <label for="agreement" class="text-sm text-gray-700 leading-relaxed">
+                    Saya menyetakan bahwa semua informasi di atas benar, dan saya siap memberikan rumah penuh kasih untuk hewan ini.
+                </label>
+            </div>
+
+            {{-- Submit Button --}}
+            <div class="pt-4">
+                <button type="submit" 
+                        class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-105">
+                    Submit Adoption Request
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

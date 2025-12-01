@@ -20,4 +20,9 @@ class Hewan extends Model
         'foto',
         'status',
     ];
+    public function kesehatan()
+    {
+        return $this->hasMany(Kesehatan::class, 'hewan_id');
+    }
 }
+

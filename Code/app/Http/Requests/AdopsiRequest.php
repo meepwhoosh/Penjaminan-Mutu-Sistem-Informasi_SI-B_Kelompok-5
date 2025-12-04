@@ -16,7 +16,7 @@ class AdopsiRequest extends FormRequest
         return [
             'user_id' => ['required', 'exists:users,id'],
             'hewan_id' => ['required', 'exists:hewan,id'],
-            'tanggal_adopsi' => ['nullable', 'date'],
+            'tanggal_adopsi' => ['required', 'date'],
             'status' => ['required', 'in:pending,diterima,selesai,ditolak'],
         ];
     }

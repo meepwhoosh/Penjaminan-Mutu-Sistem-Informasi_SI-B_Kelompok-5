@@ -12,11 +12,21 @@
 
             {{-- IMAGE --}}
             <div class="w-full">
-                <div class="w-full h-80 bg-white border border-gray-300 rounded-xl overflow-hidden">
-                    @if($hewan->foto)
-                    <img src="{{ asset('images/'.$hewan->foto) }}"
-                        class="w-full h-full object-cover">
-                    @endif
+                <div class="w-full bg-white border border-gray-300 rounded-xl overflow-hidden flex items-center justify-center p-4">
+                    @php
+                        $fotoUrl = asset('images/paw.png');
+                        if ($hewan->foto) {
+                            if (str_starts_with($hewan->foto, 'hewan/')) {
+                                $fotoUrl = asset('storage/'.$hewan->foto);
+                            } elseif (str_starts_with($hewan->foto, 'http')) {
+                                $fotoUrl = $hewan->foto;
+                            } else {
+                                $fotoUrl = asset('images/'.$hewan->foto);
+                            }
+                        }
+                    @endphp
+                    <img src="{{ $fotoUrl }}"
+                        class="max-h-96 w-auto object-contain">
                 </div>
             </div>
 

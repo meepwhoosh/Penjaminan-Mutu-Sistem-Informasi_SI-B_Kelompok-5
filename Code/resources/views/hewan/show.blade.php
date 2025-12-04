@@ -11,8 +11,20 @@
     </div>
 
     <div class="w-full h-64 mb-4 rounded bg-gray-50 overflow-hidden">
-        @if($hewan->foto)
-            <img src="{{ asset('storage/'.$hewan->foto) }}" alt="{{ $hewan->nama }}" class="w-full h-full object-cover">
+        @php
+            $fotoUrl = null;
+            if ($hewan->foto) {
+                if (str_starts_with($hewan->foto, 'hewan/')) {
+                    $fotoUrl = asset('storage/'.$hewan->foto);
+                } elseif (str_starts_with($hewan->foto, 'http')) {
+                    $fotoUrl = $hewan->foto;
+                } else {
+                    $fotoUrl = asset('images/'.$hewan->foto);
+                }
+            }
+        @endphp
+        @if($fotoUrl)
+            <img src="{{ $fotoUrl }}" alt="{{ $hewan->nama }}" class="w-full h-full object-cover">
         @else
             <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">Tidak ada foto</div>
         @endif

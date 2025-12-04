@@ -69,13 +69,19 @@
         @forelse($hewan as $h)
         <div class="bg-yellow-400 rounded-2xl p-3 shadow-lg border-2 border-yellow-500 hover:shadow-xl transition">
             <div class="w-full h-44 rounded-xl overflow-hidden bg-white">
-                @if($h->foto)
-                <img src="{{ asset('images/'.$h->foto) }}" class="w-full h-full object-cover">
-                @else
-                <div class="w-full h-full flex items-center justify-center text-gray-400">
-                    No Image
-                </div>
-                @endif
+                @php
+                    $fotoUrl = asset('images/paw.png');
+                    if ($h->foto) {
+                        if (str_starts_with($h->foto, 'hewan/')) {
+                            $fotoUrl = asset('storage/'.$h->foto);
+                        } elseif (str_starts_with($h->foto, 'http')) {
+                            $fotoUrl = $h->foto;
+                        } else {
+                            $fotoUrl = asset('images/'.$h->foto);
+                        }
+                    }
+                @endphp
+                <img src="{{ $fotoUrl }}" class="w-full h-full object-cover" alt="{{ $h->nama }}">
             </div>
 
             <div class="mt-3">

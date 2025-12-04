@@ -1,59 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🐾 Adopt A Buddy — Sistem Informasi Adopsi Hewan  
+### ⭐ Proyek Penjaminan Sistem Informasi | Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Selamat datang di repositori **Adopt A Buddy**, sebuah sistem informasi yang dirancang untuk mempermudah proses **adopsi hewan peliharaan** secara aman, terstruktur, dan terverifikasi.  
+Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Sistem Informasi**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Tentang Proyek  
+**Adopt A Buddy** adalah aplikasi berbasis web yang bertujuan menyediakan platform bagi calon adopter dan shelter/penyedia hewan. Sistem memastikan informasi yang ditampilkan **akurat**, **aman**, dan **mudah diakses** melalui penerapan prinsip **quality assurance (QA)** di setiap tahap pengembangan.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### ✨ Fitur Utama  
+- 🐶 **Manajemen Hewan** (input, update, ketersediaan adopsi)  
+- 👤 **Registrasi & Login** (user & admin)  
+- 📄 **Formulir Adopsi**  
+- 📊 **Monitoring dan Validasi** proses adopsi  
+- 🔐 **Keamanan data** pengguna dan hewan  
+- 📱 **Antarmuka responsif dan ramah pengguna**  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🛠️ Teknologi yang Digunakan  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+| Teknologi | Keterangan |
+|----------|------------|
+| **Laravel 10** | Framework utama aplikasi |
+| **MySQL** | Database |
+| **Blade Template** | Frontend |
+| **Bootstrap / Tailwind** | UI styling |
+| **GitHub** | Version control |
+| **Composer & NPM** | Package management |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 👥 Anggota Kelompok & Role  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Nama | NIM | Peran |
+|------|------|--------|
+| **Sofia Ismar Hermansyah** | F52123052 | 🎯 Project Manager |
+| **Annisa Diandra Wahani** | F52123053 | 🎨 UI/UX Designer |
+| **Dede Al Fandi** | F52123058 | 🧠 Back-End Developer |
+| **Dian Wulandari** | F52123060 | 💻 Front-End Developer |
+| **Aura Rahmadani** | F52123061 | 🗄️ Database Engineer |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 📂 Struktur Direktori
 
-## Contributing
+```bash
+├── app/
+│   ├── Http/
+│   ├── Models/
+│   ├── Controllers/
+├── resources/
+│   ├── views/
+│   ├── css/
+│   └── js/
+├── public/
+├── database/
+│   ├── migrations/
+│   └── seeders/
+└── routes/
+    └── web.php
+````
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🔧 Cara Menjalankan Proyek
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Clone repositori**
 
-## Security Vulnerabilities
+   ```bash
+   git clone https://github.com/username/adopt-a-buddy.git
+   cd adopt-a-buddy
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Install dependensi**
 
-## License
+   ```bash
+   composer install
+   npm install
+   npm run dev
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. **Salin file environment**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Generate app key**
+
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Atur konfigurasi database, lalu migrate**
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. **Jalankan aplikasi**
+
+   ```bash
+   php artisan serve
+   ```
+
+---
+
+## 🧪 Penjaminan Kualitas (Quality Assurance)
+
+Proyek ini menerapkan QA melalui:
+
+* ✔️ Validasi input di setiap form
+* ✔️ Otentikasi & otorisasi (role user/admin)
+* ✔️ Pengujian fungsi dasar (unit & manual testing)
+* ✔️ Perlindungan keamanan (CSRF, SQL Injection, hashing password)
+* ✔️ Dokumentasi pengembangan & hasil pengujian
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi sangat terbuka!
+Silakan buat **pull request** atau ajukan **issue** apabila menemukan bug atau ide fitur baru.
+
+---
+
+## 📜 Lisensi
+
+Proyek ini dikembangkan untuk tujuan akademik dan pembelajaran.
+
+---
+
+## 💛 Terima Kasih
+
+Terima kasih telah mengunjungi repositori **Adopt A Buddy**!
+Semoga proyek ini bermanfaat, informatif, dan memberikan pengalaman terbaik bagi pengguna.
+
+---

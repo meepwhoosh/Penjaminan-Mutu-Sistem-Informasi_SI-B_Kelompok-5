@@ -13,9 +13,26 @@ use Illuminate\Support\Facades\Auth;
 
 class AdopsiController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $adopsi = Adopsi::with(['user', 'hewan'])->latest()->paginate(12);
+        $query = Adopsi::with(['user', 'hewan'])->latest();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', function ($sub) use ($search) {
+                    $sub->where('name', 'like', '%'.$search.'%');
+                })->orWhereHas('hewan', function ($sub) use ($search) {
+                    $sub->where('nama', 'like', '%'.$search.'%');
+                });
+            });
+        }
+
+        $adopsi = $query->paginate(12)->withQueryString();
 
         return view('adopsi.index', compact('adopsi'));
     }

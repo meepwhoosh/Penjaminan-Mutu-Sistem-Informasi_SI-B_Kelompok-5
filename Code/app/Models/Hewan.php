@@ -17,6 +17,9 @@ class Hewan extends Model
         'ras',
         'deskripsi',
         'usia',
+        'gender',
+        'warna',
+        'kepribadian',
         'foto',
         'status',
     ];
@@ -25,4 +28,3 @@ class Hewan extends Model
         return $this->hasMany(Kesehatan::class, 'hewan_id');
     }
 }
-

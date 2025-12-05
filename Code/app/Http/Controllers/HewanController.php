@@ -9,9 +9,44 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class HewanController extends Controller
 {
+    public function index(Request $request): View
+    {
+        $query = Hewan::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%'.$search.'%')
+                  ->orWhere('ras', 'like', '%'.$search.'%')
+                  ->orWhere('deskripsi', 'like', '%'.$search.'%');
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        $hewan = $query->latest()->paginate(12)->withQueryString();
+        return view('hewan.admin.index', compact('hewan'));
+    }
+
+    public function create(): View
+    {
+        return view('hewan.create');
+    }
+
     public function publicIndex(Request $request)
     {
         $query = Hewan::query()->where('status', 'tersedia');
@@ -68,14 +103,11 @@ class HewanController extends Controller
         return redirect()->route('admin.hewan.index')->with('status', 'Hewan berhasil ditambahkan.');
     }
 
-    // app/Http/Controllers/HewanController.php
-
-    public function show($id)
+    public function show(Hewan $hewan): View
     {
-        // Eager Load 'kesehatan' untuk mengambil data vaksin
-        $hewan = Hewan::with('kesehatan')->findOrFail($id); 
-
-        return view('hewan.show', compact('hewan')); // Pastikan nama view sesuai
+        // Eager load kesehatan untuk tampilan admin
+        $hewan->load('kesehatan');
+        return view('hewan.admin.show', compact('hewan'));
     }
 
     /**
@@ -103,7 +135,7 @@ class HewanController extends Controller
 
         if ($request->hasFile('foto')) {
             // hapus foto lama jika ada
-            if ($hewan->foto) {
+            if ($hewan->foto && Str::startsWith($hewan->foto, 'hewan/')) {
                 Storage::disk('public')->delete($hewan->foto);
             }
 
@@ -119,7 +151,7 @@ class HewanController extends Controller
     public function destroy(Hewan $hewan): RedirectResponse
     {
         // hapus foto di storage jika ada
-        if ($hewan->foto) {
+        if ($hewan->foto && Str::startsWith($hewan->foto, 'hewan/')) {
             Storage::disk('public')->delete($hewan->foto);
         }
 

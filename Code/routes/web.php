@@ -8,8 +8,8 @@ Route::get('/', function () {
     // If user is authenticated, redirect based on role; otherwise show public landing
     if (Auth::check()) {
         $role = Auth::user()->role ?? null;
-        if ($role === 'admin' && Route::has('admin.dashboard')) {
-            return redirect()->route('admin.dashboard');
+        if ($role === 'admin') {
+            return redirect()->route('hewan.index');
         }
 
         if ($role === 'user' && Route::has('user.dashboard')) {
@@ -19,7 +19,7 @@ Route::get('/', function () {
         return redirect()->route('dashboard');
     }
 
-    return view('welcome');
+    return redirect()->route('login');
 });
 /*
 |--------------------------------------------------------------------------
@@ -27,39 +27,9 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-// Halaman Login
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::post('/login', function () {
-    // Logic login akan ditambahkan nanti
-    return redirect()->back()->with('error', 'Login functionality not implemented yet');
-})->name('login.post');
-
-// Halaman Register
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::post('/register', function () {
-    // Logic register akan ditambahkan nanti
-    return redirect()->back()->with('error', 'Register functionality not implemented yet');
-})->name('register.post');
-
-// Forgot Password
-Route::get('/password/reset', function () {
-    return view('auth.forgot-password');
-})->name('password.request');
-
 // Terms & Privacy
-Route::get('/terms', function () {
-    return view('terms');
-})->name('terms');
-
-Route::get('/privacy', function () {
-    return view('privacy');
-})->name('privacy');
+Route::view('/terms', 'terms')->name('terms');
+Route::view('/privacy', 'privacy')->name('privacy');
 
 // Social Login - Google
 Route::get('/login/google', function () {
@@ -88,10 +58,6 @@ Route::get('/register/apple', function () {
     return redirect()->back()->with('info', 'Apple register not implemented yet');
 })->name('register.apple');
 
-// Homepage (optional)
-Route::get('/', function () {
-    return redirect()->route('login');
-});
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

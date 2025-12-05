@@ -149,7 +149,7 @@
             <div class="pt-4">
                 <button type="submit" 
                         class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-105">
-                    Submit Adoption Request
+                    Ajukan Adopsi
                 </button>
             </div>
         </form>

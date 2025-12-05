@@ -2,7 +2,19 @@
 ### ⭐ Proyek Penjaminan Sistem Informasi | Laravel
 
 Selamat datang di repositori **Adopt A Buddy**, sebuah sistem informasi yang dirancang untuk mempermudah proses **adopsi hewan peliharaan** secara aman, terstruktur, dan terverifikasi.  
-Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Sistem Informasi**.
+Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Mutu Sistem Informasi**.
+
+---
+
+## 👥 Anggota Kelompok 5 & Role  
+
+| Nama | NIM | Peran |
+|------|------|--------|
+| **Sofia Ismar Hermansyah** | F52123052 | 🎯 Project Manager |
+| **Annisa Diandra Wahani** | F52123053 | 🎨 UI/UX Designer |
+| **Dede Al Fandi** | F52123058 | 🧠 Back-End Developer |
+| **Dian Wulandari** | F52123060 | 💻 Front-End Developer |
+| **Aura Rahmadani** | F52123061 | 🗄️ Database Engineer |
 
 ---
 
@@ -19,6 +31,20 @@ Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Sistem Informasi*
 
 ---
 
+## 📅 Project Task Management & Time Schedule
+
+Dokumentasi perencanaan, timeline pengerjaan, tugas masing-masing anggota, serta progres proyek dapat diakses melalui Notion.
+
+🔗 Link Notion (Project Management & Timeline):
+👉 <a href="https://www.notion.so/Project-Task-Management-Website-Adopt-a-Buddy-2ab8b8d6f275807d94fbf7d3c03c25f0?">Link Notion
+
+## 🎨 Figma UI/UX Design
+
+Desain antarmuka sistem dibuat menggunakan Figma untuk memastikan tampilan yang konsisten, modern, dan mudah digunakan.
+
+🔗 Link Figma (UI/UX Prototyping):
+👉 <a href="https://www.figma.com/design/HbMRIl4guY3Jq2FfTQWl6Y/Adopt-A-Buddy?node-id=0-1&t=obgjDGv9VRTL0dGT-1">Link Desain Figma
+
 ## 🛠️ Teknologi yang Digunakan  
 
 | Teknologi | Keterangan |
@@ -29,18 +55,6 @@ Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Sistem Informasi*
 | **Bootstrap / Tailwind** | UI styling |
 | **GitHub** | Version control |
 | **Composer & NPM** | Package management |
-
----
-
-## 👥 Anggota Kelompok & Role  
-
-| Nama | NIM | Peran |
-|------|------|--------|
-| **Sofia Ismar Hermansyah** | F52123052 | 🎯 Project Manager |
-| **Annisa Diandra Wahani** | F52123053 | 🎨 UI/UX Designer |
-| **Dede Al Fandi** | F52123058 | 🧠 Back-End Developer |
-| **Dian Wulandari** | F52123060 | 💻 Front-End Developer |
-| **Aura Rahmadani** | F52123061 | 🗄️ Database Engineer |
 
 ---
 

@@ -12,10 +12,9 @@
                 {{-- Left Text --}}
                 <div>
                     <p class="text-yellow-500 text-[30px] leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. 
-                        Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis 
-                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. 
-                        Vestibulum lacinia arcu eget nulla.
+                        Adopt A Buddy adalah platform adopsi yang secara khusus berfokus pada penyelamatan dan penyaluran
+                        anjing serta kucing yang membutuhkan rumah baru. Kami hadir untuk menjadi penghubung antara
+                        hewan terlantar dengan calon adopter yang siap memberikan kasih sayang, perhatian, dan tanggung jawab.
                     </p>
                 </div>
 
@@ -40,10 +39,9 @@
                 {{-- Right Text --}}
                 <div>
                     <p class="text-yellow-500 text-[30px] leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. 
-                        Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis 
-                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. 
-                        Vestibulum lacinia arcu eget nulla.
+                        Kami bekerja sama dengan relawan dan shelter untuk merawat anjing dan kucing yang diselamatkan,
+                        memastikan mereka mendapatkan perawatan yang layak sebelum diadopsi. Adopt A Buddy juga berkomitmen
+                        untuk menyediakan proses adopsi yang transparan, aman, dan bertanggung jawab bagi semua pihak.
                     </p>
                 </div>
             </div>
@@ -58,10 +56,9 @@
                 {{-- Left Text --}}
                 <div>
                     <p class="text-yellow-500 text-[30px] leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. 
-                        Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis 
-                        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. 
-                        Vestibulum lacinia arcu eget nulla.
+                        Kami berharap setiap anjing dan kucing dapat memperoleh kesempatan hidup yang lebih baik melalui adopsi.
+                        Dengan memilih mengadopsi, Anda tidak hanya menyelamatkan satu kehidupan, tetapi juga membuka ruang
+                        bagi terciptanya hubungan yang penuh cinta dan kepedulian antara manusia dan hewan.
                     </p>
                 </div>
 

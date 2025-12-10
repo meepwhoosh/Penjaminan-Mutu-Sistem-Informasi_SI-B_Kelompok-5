@@ -239,7 +239,7 @@
                 >
             </div>
         </div>
-        <button class="ready-button mt-6" onclick="window.location.href='{{ route('pets') }}'">Find a friend</button>
+        <button class="ready-button mt-6" onclick="window.location.href='{{ route('hewan.index') }}'">Find a friend</button>
     </div>
 
     <div class="ready-image">

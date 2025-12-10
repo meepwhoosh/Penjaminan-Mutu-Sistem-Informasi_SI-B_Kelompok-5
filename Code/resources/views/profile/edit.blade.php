@@ -117,13 +117,13 @@
                                 {{ $adopsi->hewan->nama }}
                             </td>
                             <td class="border-r border-[#facc15] p-4 text-[#3654a5] font-medium align-top">
-                                {{ $adopsi->created_at->format('d M Y') }} 
+                                {{ $adopsi->created_at?->format('d M Y') }} 
                             </td>
                             <td class="border-r border-[#facc15] p-4 text-[#3654a5] font-medium align-top">
                                 {{ ucwords($adopsi->status) }}
                             </td>
                             <td class="p-4 text-[#3654a5] font-medium align-top">
-                                {{ $adopsi->tanggal_adopsi->format('d M Y') }}
+                                {{ $adopsi->tanggal_adopsi?->format('d M Y') }}
                             </td>
                         </tr>
                     @empty

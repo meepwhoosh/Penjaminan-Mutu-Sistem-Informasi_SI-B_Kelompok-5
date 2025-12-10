@@ -14,31 +14,31 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Show register page.
-     */
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle user registration.
-     */
     public function store(Request $request): RedirectResponse
     {
+        // 1. Validasi Input
         $request->validate([
-            'name'  => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'], // Ganti 'name' jadi ini
+            'last_name'  => ['required', 'string', 'max:255'], // Tambah ini
             'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password'   => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Create user
+        // 2. Gabungkan Nama Depan & Belakang
+        $fullName = $request->first_name . ' ' . $request->last_name;
+
+        // 3. Buat User
         $user = User::create([
-            'name' => $request->name,
-            'email'      => $request->email,
-            'password'   => Hash::make($request->password),
-            'role'       => 'user',
+            'first_name'     => $fullName, // Simpan gabungan nama
+            'last_name'      => $request->last_name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'role'     => 'user',
         ]);
 
         event(new Registered($user));

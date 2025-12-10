@@ -4,6 +4,7 @@
 @php
     use App\Models\Hewan;
     use App\Models\Adopsi;
+    use App\Models\User;
 
     $totalHewan = Hewan::count();
     $tersedia = Hewan::where('status', 'tersedia')->count();
@@ -97,7 +98,7 @@
                 <tbody>
                     @forelse($recentAdopsi as $a)
                         <tr class="hover:bg-blue-50/60 text-sm">
-                            <td class="p-3 border-b">{{ $a->user->name ?? 'User' }}</td>
+                            <td class="p-3 border-b">{{ $a->user->first_name ?? 'User' }}</td>
                             <td class="p-3 border-b">{{ $a->hewan->nama ?? '-' }}</td>
                             <td class="p-3 border-b"><x-status-badge :status="$a->status" /></td>
                             <td class="p-3 border-b">{{ $a->tanggal_adopsi ? \Carbon\Carbon::parse($a->tanggal_adopsi)->format('d M Y') : '-' }}</td>

@@ -68,7 +68,7 @@
                 @foreach($adopsi as $a)
                     <tr class="hover:bg-blue-50/60">
                         <td class="p-3 border-b">{{ $a->id }}</td>
-                        <td class="p-3 border-b">{{ $a->user->name ?? 'User' }}</td>
+                        <td class="p-3 border-b">{{ $a->user->first_name ?? 'User' }}</td>
                         <td class="p-3 border-b">{{ $a->hewan->nama ?? '-' }}</td>
                         <td class="p-3 border-b">
                             <x-status-badge :status="$a->status" />

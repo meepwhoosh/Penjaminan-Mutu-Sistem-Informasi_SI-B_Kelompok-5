@@ -258,19 +258,16 @@
 </head>
 <body>
     <div class="container">
-        <!-- Left Side -->
         <div class="left-side">
             <div class="paw-prints">
-                <img src="{{ asset('images/paw.png') }}" alt="Cat" class="paw-print">
+                <img src="{{ asset('images/paw.png') }}" alt="Paw" class="paw-print">
             </div>
-                <img src="{{ asset('images/SignUp.png') }}" alt="Paw Print" class="dog-image">
-            
+            <img src="{{ asset('images/SignUp.png') }}" alt="Dog" class="dog-image">
         </div>
 
-        <!-- Right Side -->
         <div class="right-side">
             <div class="logo-container">
-                <img src="{{ asset('images/Logo.png') }}" alt="Adopt a Buddy Logo" class="logo">
+                <img src="{{ asset('images/Logo.png') }}" alt="Logo" class="logo">
             </div>
 
             <h1 class="register-title">Register</h1>
@@ -317,7 +314,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                             </svg>
                             <input type="password" name="password" id="password" class="form-input" placeholder="Password" required>
-                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                            <button type="button" class="toggle-password" onclick="togglePassword('password', 'eye-icon')">
                                 <svg id="eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -327,6 +324,21 @@
                         @error('password')
                             <span style="color: #4A5FC1; font-size: 12px; margin-top: 5px; display: block;">{{ $message }}</span>
                         @enderror
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-input" placeholder="Confirm Password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('password_confirmation', 'eye-icon-confirm')">
+                                <svg id="eye-icon-confirm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="terms-text">

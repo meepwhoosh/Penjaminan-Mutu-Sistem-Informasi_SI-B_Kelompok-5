@@ -1,5 +1,5 @@
 # 🐾 Adopt A Buddy — Sistem Informasi Adopsi Hewan  
-### ⭐ Proyek Penjaminan Sistem Informasi | Laravel
+### ⭐ Proyek Penjaminan Mutu Sistem Informasi | Laravel
 
 Selamat datang di repositori **Adopt A Buddy**, sebuah sistem informasi yang dirancang untuk mempermudah proses **adopsi hewan peliharaan** secara aman, terstruktur, dan terverifikasi.  
 Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Mutu Sistem Informasi**.
@@ -19,7 +19,7 @@ Proyek ini dibuat sebagai bagian dari mata kuliah **Penjaminan Mutu Sistem Infor
 ---
 
 ## 🚀 Tentang Proyek  
-**Adopt A Buddy** adalah aplikasi berbasis web yang bertujuan menyediakan platform bagi calon adopter dan shelter/penyedia hewan. Sistem memastikan informasi yang ditampilkan **akurat**, **aman**, dan **mudah diakses** melalui penerapan prinsip **quality assurance (QA)** di setiap tahap pengembangan.
+**Adopt A Buddy** adalah aplikasi berbasis web yang bertujuan menyediakan platform bagi calon adopter dan shelter/penyedia hewan. Sistem memastikan informasi yang ditampilkan **akurat**, **aman**, dan **mudah diakses**
 
 ### ✨ Fitur Utama  
 - 🐶 **Manajemen Hewan** (input, update, ketersediaan adopsi)  
@@ -84,7 +84,7 @@ Desain antarmuka sistem dibuat menggunakan Figma untuk memastikan tampilan yang 
 1. **Clone repositori**
 
    ```bash
-   git clone https://github.com/username/adopt-a-buddy.git
+   git clone https://github.com/meepwhoosh/Penjaminan-Mutu-Sistem-Informasi_SI-B_Kelompok-5
    cd adopt-a-buddy
    ```
 
@@ -119,18 +119,6 @@ Desain antarmuka sistem dibuat menggunakan Figma untuk memastikan tampilan yang 
    ```bash
    php artisan serve
    ```
-
----
-
-## 🧪 Penjaminan Kualitas (Quality Assurance)
-
-Proyek ini menerapkan QA melalui:
-
-* ✔️ Validasi input di setiap form
-* ✔️ Otentikasi & otorisasi (role user/admin)
-* ✔️ Pengujian fungsi dasar (unit & manual testing)
-* ✔️ Perlindungan keamanan (CSRF, SQL Injection, hashing password)
-* ✔️ Dokumentasi pengembangan & hasil pengujian
 
 ---
 

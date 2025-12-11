@@ -19,6 +19,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['admin', 'user'])->default('user');
+            $table->string('nomor_hp', 15)->nullable(); // No HP (nullable agar tidak wajib diisi admin seeder)
+            $table->text('alamat')->nullable();         // Alamat (text untuk tulisan panjang)
+            $table->date('tanggal_lahir')->nullable();  // Format Tanggal
             $table->rememberToken();
             $table->timestamps();
         });
